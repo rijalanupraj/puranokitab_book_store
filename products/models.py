@@ -54,7 +54,7 @@ class Product(models.Model):
 
     objects = ProductManager()    
 
-    def get_absoulte_url(self):
+    def get_absolute_url(self):
         return reverse("products:product-detail",kwargs={'slug':self.slug})
 
     def __str__(self):
