@@ -1,0 +1,11 @@
+{% extends 'home/home_base.html' %}
+
+{% block content %}
+
+{% for obj in object_list %}
+
+{{obj.title}}
+
+{% endfor %}
+
+{% endblock content %}
