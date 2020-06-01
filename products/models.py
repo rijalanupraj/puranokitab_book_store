@@ -47,9 +47,10 @@ class Product(models.Model):
     slug = models.SlugField(blank=True,null=True,unique=True)
     description = models.TextField()
     price = models.DecimalField(decimal_places=2,max_digits=7,default=0.0)
-    image = models.ImageField(upload_to=upload_image_path,null=True,blank=True)
+    image = models.ImageField(upload_to=upload_image_path,null=True,blank=True,default='products/default_book.png')
     featured = models.BooleanField(default = False)
     active = models.BooleanField(default=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
 
     objects = ProductManager()    
 
