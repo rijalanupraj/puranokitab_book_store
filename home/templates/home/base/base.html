@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="eng">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Purano Kitab-Buy and Sell 2nd hand book in Nepal">
+    <meta name="keywords" content="Book,kitab,puranokitab,buy books,nepal">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>AafnoKitab | Home</title>
+    {% include 'home/base/base_css.html' %}
+    {% block base_head %}
+
+
+    {% endblock base_head %}
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
+
+    
+</head>
+
+<body>
+    {% include 'home/components/navbar.html' %}
+   {% block content %}
+
+   {% endblock %}
+    
+        
+    {% include 'home/components/footer.html' %}
+   {% include 'home/base/base_js.html' %}
+    
+    </body>
+    
+    </html>

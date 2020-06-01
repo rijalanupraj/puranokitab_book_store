@@ -1,10 +1,10 @@
-{% extends 'home/base/base.html' %}
+{% extends 'home/home_base.html' %}
 
 {% block content %}
 
 {% for obj in object_list %}
 
-<a href="{{obj.get_absoulte_url}}">{{obj.title}}</a>
+{{obj.title}}
 
 {% endfor %}
 
