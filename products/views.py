@@ -5,7 +5,7 @@ from .models import Product
 
 class ProductListView(ListView):
     # queryset = Product.objects.all()
-    template_name = "products/products_list.html"
+    template_name = "products/shop.html"
 
     def get_queryset(self):
         request = self.request
@@ -14,8 +14,6 @@ class ProductListView(ListView):
 class ProductFeaturedListView(ListView):
     queryset = Product.objects.all().featured()
     template_name = "products/products_list_featured.html"
-
-    
 
 
 class ProductDetailView(DetailView):
