@@ -17,13 +17,13 @@ from django.contrib import admin
 from django.urls import path,include
 from django.conf import settings
 from django.conf.urls.static import static
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/',include('accounts.urls')),
     path('',include('home.urls')),
     path('products/', include('products.urls',namespace='products')),
-    path('search/',include('search.urls',namespace='search'))
+    path('search/',include('search.urls',namespace='search')),
+    path('cart/',include('carts.urls',namespace='carts')),
 
 ]
 if settings.DEBUG:
