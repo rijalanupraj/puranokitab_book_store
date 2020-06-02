@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'home.apps.HomeConfig',
     'products.apps.ProductsConfig',
     'search.apps.SearchConfig',
+    'tags.apps.TagsConfig',
     'crispy_forms',
     'six',
     'django.contrib.admin',
