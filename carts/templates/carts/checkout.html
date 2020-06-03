@@ -1,9 +1,18 @@
 {% extends "home/base/base.html" %}
 {% block content %}
-
+{% if not billing_profile %}
+<div class="row">
+<div class="col-12 col-md-6">
+    <p class="lead">Login</p>
+</div>
+<div class="col-12 col-md-6">
+    <p class="lead">Continue as Guest</p>
+</div>
+</div>
+{% else %}
 <h1>Checkout</h1>
 <p>Cart Total: {{object.cart.total}}</p>
 <p>Shipping Total: {{object.shippping_total}}</p>
 <p>Order Total: {{ object.total}}</p>
-
+{% endif %}
 {% endblock %}
