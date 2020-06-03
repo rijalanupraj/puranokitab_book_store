@@ -4,6 +4,7 @@ from orders.models import Order
 from billing.models import BillingProfile
 from .models import Cart
 from django.contrib.auth.decorators import login_required
+from addresses.forms import AddressForm
 
 # Create your views here.
 
@@ -34,7 +35,9 @@ def checkout_home(request):
     order_obj = None    
     if cart_created or cart_obj.products.count()==0:
         return redirect("cart:cart-home")
-   
+    
+    address_form = AddressForm()
+
     billing_profile,billing_profile_created = BillingProfile.objects.new_or_get(request)
     if billing_profile is not None:
         order_obj, order_obj_created = Order.objects.new_or_get(billing_profile,cart_obj)
@@ -44,6 +47,7 @@ def checkout_home(request):
     context = {
         'object':order_obj,
         'billing_profile':billing_profile,
+        'address_form':address_form,
     }    
     return render(request,'carts/checkout.html',context)
     
