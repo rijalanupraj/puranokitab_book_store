@@ -1,6 +1,7 @@
 {% extends "home/base/base.html" %}
+{% load crispy_forms_tags %}
 {% block content %}
-<b>{{object.order_id}}</b>--{{object.cart}}
+<!-- <b>{{object.order_id}}</b>--{{object.cart}}
 {% if not billing_profile %}
 <div class="row">
 <div class="col-12 col-md-6">
@@ -16,5 +17,73 @@
 <p>Cart Total: {{object.cart.total}}</p>
 <p>Shipping Total: {{object.shippping_total}}</p>
 <p>Order Total: {{ object.total}}</p>
-{% endif %}
+{% endif %} -->
+
+<section class="checkout spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h6><span class="icon_tag_alt"></span> Have a coupon? <a href="#">Click here</a> to enter your code
+                </h6>
+            </div>
+        </div>
+        <div class="checkout__form">
+            <h4>Billing Details</h4>
+            <form action="#">
+                <div class="row">
+                    <div class="col-lg-8 col-md-6">
+                        <div class="row">
+                            {% for field in address_form %}
+                            <div class="col-lg-6">
+                                <div class="checkout__input">
+                                    <label for="{{ field.id_for_label }}"></label>
+                                    <p>{{ field.label }}{% if field.field.required %}<span>*</span>{% endif %}</p>
+                                    {{field}}
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="checkout__order">
+                            <h4>Your Order</h4>
+                            <div class="checkout__order__products">Products <span>Total</span></div>
+                            <ul>
+                                {% for product in object.cart.products.all %}
+                                <li>{{product.title}}<span>Rs.{{product.price}}</span></li>
+                                {% endfor %}
+                            </ul>
+                            <div class="checkout__order__subtotal">Subtotal <span>Rs.{{object.cart.total}}</span></div>
+                            <div class="checkout__order__shippingtotal">Shipping <span>Rs.{{object.shippping_total}}</span></div>
+                            <div class="checkout__order__total">Total <span>Rs.{{object.total}}</span></div>
+                            <ul>
+                                <li>Order Id <span>{{object.order_id}}</span></li>
+                            </ul>
+                            <!-- <p>Remeber the Order Id</p> -->
+                            <div class="checkout__input__checkbox">
+                                <label for="acc-or">
+                                    I Accept Terms and Coditions.
+                                    <input type="checkbox" id="acc-or">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <!-- <div class="checkout__input__checkbox">
+                                <label for="paypal">
+                                    Esewa
+                                    <input type="checkbox" id="paypal">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div> -->
+                            <button type="submit" class="site-btn">PLACE ORDER</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+
+
+
 {% endblock %}
