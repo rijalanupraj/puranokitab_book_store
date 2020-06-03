@@ -1,8 +1,8 @@
 from django.db import models
 from django.conf import settings
 from django.db.models.signals import post_save
-# Create your models here.
 
+# Create your models here.
 User = settings.AUTH_USER_MODEL
 
 
@@ -21,9 +21,10 @@ class BillingProfile(models.Model):
     active = models.BooleanField(default=True)
     update = models.DateTimeField(auto_now=True)
     timestamp = models.DateTimeField(auto_now_add=True)
+    
 
     def __str__(self):
-        return self.email
+        return str(self.user)
 
     objects = BillingProfileManager() 
 
