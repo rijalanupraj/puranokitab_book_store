@@ -1,23 +1,6 @@
 {% extends "home/base/base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-<!-- <b>{{object.order_id}}</b>--{{object.cart}}
-{% if not billing_profile %}
-<div class="row">
-<div class="col-12 col-md-6">
-    <p class="lead">Login</p>
-</div>
-<div class="col-12 col-md-6">
-    <p class="lead">Continue as Guest</p>
-</div>
-</div>
-{% else %}
-
-<h1>Checkout</h1>
-<p>Cart Total: {{object.cart.total}}</p>
-<p>Shipping Total: {{object.shippping_total}}</p>
-<p>Order Total: {{ object.total}}</p>
-{% endif %} -->
 
 <section class="checkout spad">
     <div class="container">
@@ -28,8 +11,9 @@
             </div>
         </div>
         <div class="checkout__form">
-            <h4>Billing Details</h4>
-            <form action="#">
+            <h4>Shipping Details</h4>
+            <form action="{% url 'checkout_address_create_view' %}" method="POST">
+                {% csrf_token %}
                 <div class="row">
                     <div class="col-lg-8 col-md-6">
                         <div class="row">
