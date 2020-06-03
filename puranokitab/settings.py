@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'search.apps.SearchConfig',
     'tags.apps.TagsConfig',
     'carts.apps.CartsConfig',
+    'orders.apps.OrdersConfig',
     'crispy_forms',
     'six',
     'django.contrib.admin',
