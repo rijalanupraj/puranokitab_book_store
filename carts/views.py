@@ -3,6 +3,8 @@ from products.models import Product
 from orders.models import Order
 from billing.models import BillingProfile
 from .models import Cart
+from django.contrib.auth.decorators import login_required
+
 # Create your views here.
 
 def cart_home(request):
@@ -26,16 +28,14 @@ def cart_update(request):
         request.session['cart_items'] = cart_obj.products.count()
     return redirect("cart:cart-home")
 
+@login_required
 def checkout_home(request):
     cart_obj, cart_created = Cart.objects.new_or_get(request)
     order_obj = None    
     if cart_created or cart_obj.products.count()==0:
         return redirect("cart:cart-home")
-    user = request.user
-    billing_profile = None
-    if user.is_authenticated:
-        billing_profile,billing_profile_created = BillingProfile.objects.get_or_create(user=user,email=user.email)
-    
+   
+    billing_profile,billing_profile_created = BillingProfile.objects.new_or_get(request)
     if billing_profile is not None:
         order_obj, order_obj_created = Order.objects.new_or_get(billing_profile,cart_obj)
 
