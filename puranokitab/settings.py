@@ -158,4 +158,4 @@ AUTHENTICATION_BACKENDS = ['accounts.backends.EmailBackend'] # new
 #Where to go after login
 LOGIN_REDIRECT_URL = 'index'
 
-LOGOUT_REDIRECT_URL = 'index'
+LOGOUT_REDIRECT_URL = 'login'
