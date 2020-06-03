@@ -3,7 +3,7 @@ import random
 from django.db.models import Q
 import os
 from django.db.models.signals import pre_save
-from .utils import unique_slug_generator
+from puranokitab.utils import unique_slug_generator
 from django.urls import reverse
 
 def get_filename_ext(filepath):
