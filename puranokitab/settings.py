@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'carts.apps.CartsConfig',
     'orders.apps.OrdersConfig',
     'billing.apps.BillingConfig',
+    'addresses.apps.AddressesConfig',
     'crispy_forms',
     'six',
     'django.contrib.admin',
