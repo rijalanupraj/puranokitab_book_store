@@ -139,7 +139,8 @@
                         <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
                         <li><a href="{% url 'cart:cart-home' %}"><i class="fa fa-shopping-bag"></i>{% if request.session.cart_items %}<span>{{request.session.cart_items}}</span>{% endif %}</a></li>
                     </ul>
-                    <div class="header__cart__price">item: <span>$150.00</span></div>
+                    <div class="header__cart__price">
+                        {% if user.is_authenticated %}Hello, <span>{{user.first_name}}</span>{% endif %}</div>
                 </div>
             </div>
         </div>

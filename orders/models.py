@@ -1,6 +1,7 @@
 from django.db import models
 from carts.models import Cart
 from billing.models import BillingProfile
+from addresses.models import Address
 from django.db.models.signals import pre_save,post_save
 from puranokitab.utils import unique_order_id_generator
 import math
@@ -8,6 +9,7 @@ import math
 
 ORDER_STATUS_CHOICES = (
     ('created','Created'),
+    ('checkout','Checkout'),
     ('paid','Paid'),
     ('shipped','Shipped'),
     ('refunded','Refunded')
@@ -17,7 +19,7 @@ ORDER_STATUS_CHOICES = (
 class OrderManager(models.Manager):
     def new_or_get(self,billing_profile,cart_obj):
         created = False
-        qs = self.get_queryset().filter(billing_profile=billing_profile,cart=cart_obj,active=True)
+        qs = self.get_queryset().filter(billing_profile=billing_profile,cart=cart_obj,active=True,status='created')
         if qs.count() ==1:
             obj = qs.first()
         else:
@@ -28,6 +30,7 @@ class OrderManager(models.Manager):
 class Order(models.Model):
     order_id = models.CharField(max_length=120,blank=True)
     billing_profile = models.ForeignKey(BillingProfile,on_delete=models.CASCADE,null=True,blank=True)
+    shipping_address = models.ForeignKey(Address,null=True,blank=True,on_delete=models.CASCADE)
     cart = models.ForeignKey(Cart,on_delete=models.CASCADE)
     status = models.CharField(max_length=120,default='created',choices=ORDER_STATUS_CHOICES)
     shipping_total = models.DecimalField(default=0.0,max_digits=60,decimal_places=2)
@@ -47,6 +50,23 @@ class Order(models.Model):
         self.total = formatted_total
         self.save()
         return new_total
+
+    def check_done(self):
+        billing_profile = self.billing_profile
+        shipping_address = self.shipping_address
+        total = self.total
+        if self.total<0:
+            return False
+        elif billing_profile and shipping_address and total>0:
+            return True
+        return False
+    
+    def mark_checkout(self):
+        if self.check_done():
+            self.status = 'checkout'
+            self.save()
+        return self.status
+
 
 def pre_save_create_order_id(sender,instance,*args,**kwargs):
     if not instance.order_id:

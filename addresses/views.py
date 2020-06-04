@@ -19,6 +19,8 @@ def checkout_address_create_view(request):
         if billing_profile is not None:
             instance.billing_profile = billing_profile
             instance.save()
+            request.session['shipping_address_id']=instance.id
+
         else:
             print("Error Here")
             return redirect('cart:checkout')
