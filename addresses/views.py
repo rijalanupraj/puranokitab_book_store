@@ -7,7 +7,7 @@ from .forms import AddressForm
 def checkout_address_create_view(request):
     form = AddressForm(request.POST or None)
     context = {
-        "address_form":form
+        "form":form
     }
     next_ = request.GET.get('next')
     next_post = request.POST.get('next')
@@ -17,17 +17,19 @@ def checkout_address_create_view(request):
         instance = form.save(commit=False)
         billing_profile,billing_profile_created = BillingProfile.objects.new_or_get(request)
         if billing_profile is not None:
+            address_type = request.POST.get('address_type','shipping')
             instance.billing_profile = billing_profile
+            instance.address_type = address_type
             instance.save()
-            request.session['shipping_address_id']=instance.id
 
+            request.session[address_type + "_address_id"] = instance.id
         else:
             print("Error Here")
-            return redirect('cart:checkout')
+            return redirect('carts:checkout')
         if is_safe_url(redirect_path,request.get_host()):
             return redirect(redirect_path)
         else:
-            return redirect("cart:checkout")
-    return redirect("cart:checkout")
+            return redirect("carts:checkout")
+    return redirect("carts:checkout")
 
 

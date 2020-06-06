@@ -24,3 +24,5 @@ class UserRegistrationForm(UserCreationForm):
 
 class LoginForm(AuthenticationForm):
     username = forms.CharField(label='Email / Username')
+
+    

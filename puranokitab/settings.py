@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'orders.apps.OrdersConfig',
     'billing.apps.BillingConfig',
     'addresses.apps.AddressesConfig',
+    'analytics.apps.AnalyticsConfig',
     'crispy_forms',
     'six',
     'django.contrib.admin',
@@ -49,6 +50,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
+FORCE_SESSION_TO_ONE = False
+FORCE_INACTIVE_USER_ENDSESSION = False
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -65,7 +70,7 @@ ROOT_URLCONF = 'puranokitab.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, "accounts/templates"),os.path.join(BASE_DIR, "home/templates"),os.path.join(BASE_DIR, "products/templates"),],
+        'DIRS': [os.path.join(BASE_DIR, "accounts/templates"),os.path.join(BASE_DIR, "home/templates"),os.path.join(BASE_DIR, "products/templates"),os.path.join(BASE_DIR, "carts/templates"),],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -135,7 +140,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "accounts/static"),
     os.path.join(BASE_DIR, "home/static"),
 
 ]

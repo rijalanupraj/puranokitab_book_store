@@ -8,7 +8,8 @@
     <div class="humberger__menu__cart">
         <ul>
             <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-            <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+            <li><a href="{% url 'carts:cart-home' %}"><i class="fa fa-shopping-bag"></i>{% if request.session.cart_items %}<span class="navbar-cart-count">{{request.session.cart_items}}</span >{% else %}<span class="navbar-cart-count">0</span>{% endif %}</a></li>
+            
         </ul>
         <div class="header__cart__price">item: <span>$150.00</span></div>
     </div>
@@ -137,7 +138,7 @@
                 <div class="header__cart">
                     <ul>
                         <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                        <li><a href="{% url 'cart:cart-home' %}"><i class="fa fa-shopping-bag"></i>{% if request.session.cart_items %}<span>{{request.session.cart_items}}</span>{% endif %}</a></li>
+                        <li><a href="{% url 'carts:cart-home' %}"><i class="fa fa-shopping-bag"></i>{% if request.session.cart_items %}<span class="navbar-cart-count">{{request.session.cart_items}}</span >{% else %}<span class="navbar-cart-count">0</span>{% endif %}</a></li>
                     </ul>
                     <div class="header__cart__price">
                         {% if user.is_authenticated %}Hello, <span>{{user.first_name}}</span>{% endif %}</div>

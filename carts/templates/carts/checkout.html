@@ -12,21 +12,19 @@
         </div>
         <div class="checkout__form">
             <h4>Shipping Details</h4>
-            <form action="{% url 'checkout_address_create_view' %}" method="POST">
-                {% csrf_token %}
+            
                 <div class="row">
                     <div class="col-lg-8 col-md-6">
-                        <div class="row">
-                            {% for field in address_form %}
-                            <div class="col-lg-6">
-                                <div class="checkout__input">
-                                    <label for="{{ field.id_for_label }}"></label>
-                                    <p>{{ field.label }}{% if field.field.required %}<span>*</span>{% endif %}</p>
-                                    {{field}}
-                                </div>
-                            </div>
-                            {% endfor %}
-                        </div>
+                        {% if not object.shipping_address %} 
+                        {% url "checkout_address_create" as checkout_address_create %}
+                        {% include 'addresses/snippets/form.html' with form=address_form next_url=request.build_absolute_url action_url=checkout_address_create address_type='shipping' %}
+                        
+                        {% elif not obje.billing_address %}
+                        
+                        {% url "checkout_address_create" as checkout_address_create %}
+                        {% include 'addresses/snippets/form.html' with form=address_form next_url=request.build_absolute_url action_url=checkout_address_create address_type='billing' %}
+
+                        {% endif %}
                     </div>
                     <div class="col-lg-4 col-md-6">
                         <div class="checkout__order">
@@ -44,6 +42,9 @@
                                 <li>Order Id <span>{{object.order_id}}</span></li>
                             </ul>
                             <!-- <p>Remeber the Order Id</p> -->
+                            {% if object.shipping_address %}
+                            <form action="{% url 'hello' %}" method="POST">
+                                {% csrf_token %}
                             <div class="checkout__input__checkbox">
                                 <label for="acc-or">
                                     I Accept Terms and Coditions.
@@ -59,10 +60,11 @@
                                 </label>
                             </div> -->
                             <button type="submit" class="site-btn">PLACE ORDER</button>
+                            {% endif %}
+                            </form>
                         </div>
                     </div>
-                </div>
-            </form>
+         </div>
         </div>
     </div>
 </section>

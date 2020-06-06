@@ -4,6 +4,7 @@ from .forms import UserRegistrationForm
 from .forms import LoginForm
 from django.contrib import messages
 
+from django.contrib.auth import authenticate, login
 
 from django.contrib.auth import login, authenticate
 from django.contrib.sites.shortcuts import get_current_site
@@ -16,12 +17,15 @@ from django.contrib.auth.models import User
 
 from django.contrib.auth import views as auth_views
 
+from .signals import user_logged_in
 
+from django.utils.http import is_safe_url
 
 # Create your views here.
 
 def register(request):
-
+    if request.user.is_authenticated:
+        return redirect('index')
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
@@ -66,3 +70,30 @@ class LoginView(auth_views.LoginView):
     form_class = LoginForm
     template_name = 'accounts/login.html'
     redirect_authenticated_user=True
+
+def login_page(request):
+    if request.user.is_authenticated:
+        return redirect('index')
+    if request.method == 'POST':
+        form = LoginForm(request=request,data=request.POST)
+        if form.is_valid():
+            next_ = request.GET.get('next')
+            next_post = request.POST.get('next')
+            redirect_path = next_ or next_post or None
+            username = form.cleaned_data.get('username')        
+            password = form.cleaned_data.get('password')
+            user = authenticate(request, username=username, password=password)
+            if user is not None and user.is_active:
+                user_logged_in.send(user.__class__,instance=user,request=request)
+                login(request, user)
+                if is_safe_url(redirect_path, request.get_host()):
+                    return redirect(redirect_path)
+                else:
+                    return redirect("/")
+        else:
+            messages.error(request, "Invalid username or password.")
+
+    else:
+        form = LoginForm()
+
+    return render(request, 'accounts/login.html', {'form': LoginForm})

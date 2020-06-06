@@ -1,0 +1,22 @@
+<form method='POST' action='{% if action_url %}{{ action_url }}{% else %}{% url "login" %}{% endif %}'>
+{% csrf_token %}
+    {% if next_url %}
+    <input type="hidden" name='next' value="{{next_url}}">
+    {% endif %}
+    <div class="row">
+    {% for field in form %}
+    <div class="col-lg-6">
+        <div class="checkout__input">
+            <label for="{{ field.id_for_label }}"></label>
+            <p>{{ field.label }}{% if field.field.required %}<span>*</span>{% endif %}</p>
+            {% if address_type %}
+                <h1>{{address_type}}</h1>
+            <input type="hidden" name="address_type" value='{{address_type}}'>
+            {{field}}
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+    <button type="submit" class="site-btn">Save the address</button>
+</div>
+</form>

@@ -6,9 +6,10 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="shoping__cart__table">
-                    <table>
+                    <table class="cart-table">
                         <thead>
                             <tr>
+                                
                                 <th class="shoping__product">Products</th>
                                 <th>Price</th>
                                 <th>Quantity</th>
@@ -16,9 +17,10 @@
                                 <th></th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="cart-body">
                             {% for product in cart.products.all %}
-                            <tr>
+                            <tr class="cart-product">
+                                
                                 <td class="shoping__cart__item">
                                     <img width="100" height="100" src="{{product.image.url}}" alt="">
                                     <a href="{{product.get_absolute_url}}"><h5>{{product.title}}</h5></a>
@@ -37,13 +39,16 @@
                                     Rs. {{product.price}}
                                 </td>
                                 <td class="shoping__cart__item__close">
-                                    {% include 'carts/snippet/remove_cart_item.html' with product=product cart=cart %}
+                                    {% include 'carts/snippet/remove_cart_item.html' with product_id=product.id%}
                                 </td>
                             </tr>
                             {% endfor %}
                                 
                         </tbody>
                     </table>
+                    <div class="cart-item-remove-form" style="display:none">
+                        {% include 'carts/snippet/remove_cart_item.html' %}
+                    </div>
                 </div>
             </div>
         </div>
@@ -51,7 +56,7 @@
             <div class="col-lg-12">
                 <div class="shoping__cart__btns">
                     <a href="{% url 'products:products-main-page' %}" class="primary-btn cart-btn">CONTINUE SHOPPING</a>
-                    <a href="{% url 'cart:cart-home' %}" class="primary-btn cart-btn cart-btn-right"><span class="icon_loading"></span>
+                    <a href="{% url 'carts:cart-home' %}" class="primary-btn cart-btn cart-btn-right"><span class="icon_loading"></span>
                         Upadate Cart</a>
                 </div>
             </div>
@@ -70,10 +75,10 @@
                 <div class="shoping__checkout">
                     <h5>Cart Total</h5>
                     <ul>
-                        <li>Subtotal <span>Rs.{{cart.subtotal}}</span></li>
-                        <li>Total <span>Rs.{{cart.subtotal}}</span></li>
+                        <li>Subtotal Rs.<span class="cart-subtotal">{{cart.subtotal}}</span></li>
+                        <li>Total Rs.<span class="cart-total">{{cart.subtotal}}</span></li>
                     </ul>
-                    <a href="{% url 'cart:checkout' %}" class="primary-btn">PROCEED TO CHECKOUT</a>
+                    <a href="{% url 'carts:checkout' %}" class="primary-btn">PROCEED TO CHECKOUT</a>
                 </div>
             </div>
         </div>
@@ -93,7 +98,7 @@
     <div class="col-lg-12">
         <div class="shoping__cart__btns">
             <a href="{% url 'products:products-main-page' %}" class="primary-btn cart-btn">CONTINUE SHOPPING</a>
-            <a href="{% url 'cart:cart-home' %}" class="primary-btn cart-btn cart-btn-right"><span class="icon_loading"></span>
+            <a href="{% url 'carts:cart-home' %}" class="primary-btn cart-btn cart-btn-right"><span class="icon_loading"></span>
                 Upadate Cart</a>
         </div>
     </div>
