@@ -7,6 +7,7 @@ from puranokitab.utils import unique_slug_generator
 from django.urls import reverse
 from django.contrib.auth.models import User
 
+from django.core.validators import MaxValueValidator, MinValueValidator
 from decimal import Decimal
 import math
 import datetime
@@ -81,8 +82,8 @@ class Product(models.Model):
     slug = models.SlugField(blank=True,null=True,unique=True)
     description = models.TextField()
     published_date = models.PositiveIntegerField(default=current_year(), validators=[MinValueValidator(1950), max_value_current_year])
-    market_price = models.DecimalField(decimal_places=2,max_digits=7,default=0.0)
-    your_price = models.DecimalField(decimal_places=2,max_digits=7,default=0.0)
+    market_price = models.DecimalField(decimal_places=2,max_digits=7,default=0.0,validators=[MinValueValidator(Decimal('0.01'))])
+    your_price = models.DecimalField(decimal_places=2,max_digits=7,default=0.0,validators=[MinValueValidator(Decimal('0.01'))])
     price = models.DecimalField(decimal_places=2,max_digits=7,default=0.0)
     book_condition = models.CharField(max_length=120,default='good',choices=BOOK_CONDITION)
     image = models.ImageField(upload_to=upload_image_path,null=True,blank=True,default='products/default_book.png')
