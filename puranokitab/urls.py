@@ -19,6 +19,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 from addresses.views import checkout_address_create_view
 from carts.views import cart_detail_api_view
+from user import views
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/',include('accounts.urls')),
@@ -27,8 +29,7 @@ urlpatterns = [
     path('search/',include('search.urls',namespace='search')),
     path('cart/',include('carts.urls',namespace='carts')),
     path('checkout/address/create/',checkout_address_create_view,name='checkout_address_create'),
-    path('api/cart/',cart_detail_api_view,name="api-cart")
-
+    path('api/cart/',cart_detail_api_view,name="api-cart"),
 ]
 if settings.DEBUG:
     urlpatterns = urlpatterns + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'billing.apps.BillingConfig',
     'addresses.apps.AddressesConfig',
     'analytics.apps.AnalyticsConfig',
+    'user.apps.UserConfig',
     'crispy_forms',
     'six',
     'django.contrib.admin',
@@ -92,7 +93,7 @@ WSGI_APPLICATION = 'puranokitab.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'puranokitab',
+        'NAME': 'purano_kitab1',
         'USER': 'root',
         'PASSWORD':'root',
         'HOST':'127.0.0.1',

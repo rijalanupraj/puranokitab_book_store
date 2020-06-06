@@ -1,7 +1,9 @@
 from django.shortcuts import render, Http404
-from django.views.generic import ListView,DetailView
+from django.views.generic import ListView,DetailView,CreateView,UpdateView,DeleteView
 from .models import Product
 from carts.models import Cart
+from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
+from products.models import Product
 
 from analytics.mixins import ObjectViewedMixin
 
@@ -52,3 +54,37 @@ class ProductDetailView(ObjectViewedMixin, DetailView):
     #     pk = self.kwargs.get('pk')
     #     return Product.objects.filter(pk=pk)
 
+class ProductCreateView(LoginRequiredMixin,CreateView):
+    model = Product
+    fields = ['title','author','market_price','your_price','book_condition','description','image']
+    template_name = 'products/product_form.html'
+
+    def form_valid(self,form):
+        form.instance.seller = self.request.user
+        return super().form_valid(form)
+
+class ProductUpdateView(LoginRequiredMixin,UserPassesTestMixin,UpdateView):
+    model = Product
+    fields = ['title','author','market_price','your_price','book_condition','description','image']
+    template_name = 'products/product_form.html'
+
+    def form_valid(self,form):
+        form.instance.seller = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        product = self.get_object()
+        if self.request.user == product.seller:
+            return True
+        return False
+
+class ProductDeleteView(LoginRequiredMixin,UserPassesTestMixin,DeleteView):
+    model = Product
+    template_name = 'products/product_confirm_delete.html'
+    success_url = '/'
+
+    def test_func(self):
+        product = self.get_object()
+        if self.request.user == product.seller:
+            return True
+        return False
