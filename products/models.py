@@ -79,7 +79,7 @@ class Product(models.Model):
     seller = models.ForeignKey(User,on_delete=models.CASCADE)
     title = models.CharField(max_length=120)
     author = models.CharField(max_length=120)
-    slug = models.SlugField(blank=True,null=True,unique=True)
+    slug = models.SlugField(blank=True,null=True,unique=True,max_length=240)
     description = models.TextField()
     published_date = models.PositiveIntegerField(default=current_year(), validators=[MinValueValidator(1950), max_value_current_year])
     market_price = models.DecimalField(decimal_places=2,max_digits=7,default=0.0,validators=[MinValueValidator(Decimal('0.01'))])
