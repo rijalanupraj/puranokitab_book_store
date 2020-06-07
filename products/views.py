@@ -12,6 +12,7 @@ from analytics.mixins import ObjectViewedMixin
 class ProductListView(ListView):
     # queryset = Product.objects.all()
     template_name = "products/shop.html"
+    paginate_by = 30
 
     def get_queryset(self):
         request = self.request

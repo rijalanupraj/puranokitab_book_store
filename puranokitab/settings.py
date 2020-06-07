@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'addresses.apps.AddressesConfig',
     'analytics.apps.AnalyticsConfig',
     'user.apps.UserConfig',
+    'favorites.apps.FavoritesConfig',
     'crispy_forms',
     'six',
     'django.contrib.admin',
