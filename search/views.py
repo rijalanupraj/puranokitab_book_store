@@ -2,6 +2,7 @@ from django.shortcuts import render
 from products.models import Product
 from django.views.generic import ListView
 # Create your views here.
+from decimal import Decimal as D
 
 class SearchProductView(ListView):
     # queryset = Product.objects.all()

@@ -30,6 +30,9 @@ urlpatterns = [
     path('cart/',include('carts.urls',namespace='carts')),
     path('checkout/address/create/',checkout_address_create_view,name='checkout_address_create'),
     path('api/cart/',cart_detail_api_view,name="api-cart"),
+    path('analytics/',include('analytics.urls',namespace='analytics')),
+
+    
 ]
 if settings.DEBUG:
     urlpatterns = urlpatterns + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

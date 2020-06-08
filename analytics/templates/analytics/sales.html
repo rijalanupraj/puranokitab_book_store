@@ -1,0 +1,24 @@
+{% extends 'home/base/base.html' %}
+
+{% block content %}
+
+<div class="row">
+    
+        <h1>Sales Data</h1>
+</div>
+
+<div class ='row'>
+    <div class="col">
+        {% for order in orders %}
+
+        <li>{{order.order_id}}</li>
+        <li>{{order.total}}</li>
+        <li>{{order.total}}</li>
+
+
+        {% endfor %}
+    </div>
+</div>
+
+
+{% endblock content %}
