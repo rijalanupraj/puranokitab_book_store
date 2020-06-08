@@ -62,7 +62,6 @@ def checkout_home(request):
     
 
     address_form = AddressForm()
-    billing_address_id = request.session.get("billing_address_id", None)
     shipping_address_id = request.session.get("shipping_address_id", None)
 
     billing_profile, billing_profile_created = BillingProfile.objects.new_or_get(request)
@@ -71,24 +70,25 @@ def checkout_home(request):
         order_obj, order_obj_created = Order.objects.new_or_get(billing_profile, cart_obj)
         if shipping_address_id:
             order_obj.shipping_address = Address.objects.get(id=shipping_address_id)
-            del request.session["shipping_address_id"]
-        if billing_address_id:
-            order_obj.billing_address = Address.objects.get(id=billing_address_id) 
-            del request.session["billing_address_id"]
-        if billing_address_id or shipping_address_id:
+            del request.session["shipping_address_id"] 
             order_obj.save()
-
+            
     if request.method == "POST":
-        "check that order is done"
         is_done = order_obj.check_done()
         if is_done:
+            print('Hello')
             order_obj.mark_checkout()
             request.session['cart_items'] = 0
             del request.session['cart_id']
-            return redirect("/cart/success")
+            print('hello')
+            return redirect("carts:checkout-success")
+            
     context = {
         "object": order_obj,
         "billing_profile": billing_profile,
         "address_form": address_form,
     }
     return render(request, "carts/checkout.html", context)
+
+def success_page(request):
+    return render(request,'carts/success.html')

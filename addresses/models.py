@@ -13,8 +13,8 @@ class Address(models.Model):
     address_type = models.CharField(max_length=120,choices=ADDRESS_TYPES)
     address_line_1 = models.CharField(max_length=120)
     address_line_2 = models.CharField(max_length=120,null=True,blank=True)
-    city = models.CharField(max_length=120,default='Pokhara')
-    district = models.CharField(max_length=120,default='Kaski')
+    city = models.CharField(max_length=120)
+    district = models.CharField(max_length=120)
     
     def __str__(self):
         return str(self.billing_profile)
