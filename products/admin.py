@@ -4,7 +4,9 @@ from .models import Product
 # Register your models here.
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['__str__','slug']
+    list_display = ['__str__','seller','your_price','slug']
+    search_fields = ['title','seller']
+
     class Meta:
         model = Product
 
