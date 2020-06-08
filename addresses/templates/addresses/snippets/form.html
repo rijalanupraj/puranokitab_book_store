@@ -10,7 +10,6 @@
             <label for="{{ field.id_for_label }}"></label>
             <p>{{ field.label }}{% if field.field.required %}<span>*</span>{% endif %}</p>
             {% if address_type %}
-                <h1>{{address_type}}</h1>
             <input type="hidden" name="address_type" value='{{address_type}}'>
             {{field}}
             {% endif %}

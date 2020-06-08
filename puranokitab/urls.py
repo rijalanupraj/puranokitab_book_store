@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path,include
 from django.conf import settings
 from django.conf.urls.static import static
-from addresses.views import checkout_address_create_view
+from addresses.views import checkout_address_create_view,checkout_address_reuse_view
 from carts.views import cart_detail_api_view
 from user import views
 
@@ -29,6 +29,7 @@ urlpatterns = [
     path('search/',include('search.urls',namespace='search')),
     path('cart/',include('carts.urls',namespace='carts')),
     path('checkout/address/create/',checkout_address_create_view,name='checkout_address_create'),
+    path('checkout/address/reuse/',checkout_address_reuse_view,name='checkout_address_reuse'),
     path('api/cart/',cart_detail_api_view,name="api-cart"),
     path('analytics/',include('analytics.urls',namespace='analytics')),
 
