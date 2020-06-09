@@ -1,25 +1,21 @@
 {% load crispy_forms_tags %}
 
 <div>
-{% if user.is_authenticated %}
+  {% if user.is_authenticated %}
             <div class="card">
                 <h3 class="card header p-3">Queries</h3>
                 <div class="card-body">
-                    <form method="POST" action="{% url 'comment' object.id %}">
+                    <form method="POST" action=".">
                         {% csrf_token %}
-                        <input type='hidden' name='user_id' value='{{request.user.id}}'>
-                        <input type='hidden' name='slug' value='{{object.slug}}'>
-
-                        
-                        <div class="form-group">
+                          <div class="form-group">
                             {{comment_form|crispy}}
-                            <!-- <textarea class="form-control" name="message" rows="4"></textarea> -->
                         </div>
-                        <button type="submit" class="btn btn-primary">submit</button>
+                        <button type="submit" class="btn btn-primary">POST</button>
                     </form>
                 </div>
             </div><br>
             {% endif %}
+
             {% if comments %}
 <h2 class="h2"><span class="badge badge-primary">Comments</span></h2>
     {% for comment in comments %}
@@ -31,10 +27,36 @@
         </div>
         <div class="card-body">
           <blockquote class="blockquote mb-0">
-            <p>{{comment.message}}</p>
+            <p>{{comment.content}}</p>
+            <footer class="blockquote-footer">{% if comment.children.count > 0 %}{{comment.chldren.count}}replies{% endif %}<a class="comment-reply-btn float-right" href="#">Reply</a></footer>
+            
           </blockquote>
         </div>
       </div><br>
+      {% for child_comment in comment.children %}
+      <div class="card comment-reply">
+        <div class="card-header">
+          {% ifequal child_comment.user object.seller %}Seller{% endifequal %}
+          {% ifnotequal child_comment.user object.seller %}Customer{% endifnotequal %}
+          <span class="float-right">{{child_comment.timestamp|timesince}} ago</span>
+        </div>
+        <div class="card-body">
+          <blockquote class="blockquote mb-0">
+            <p>{{child_comment.content}}</p>
+          </blockquote>
+        </div>
+      </div>
+      {% endfor %}
+      
+      
+      <form method="POST" action=".">
+        {% csrf_token %}
+          <div class="form-group">
+            {{comment_form|crispy}}
+            <input type="hidden" name="parent_id" value="{{comment.id}}">
+        </div>
+        <button type="submit" class="btn btn-primary">Reply</button>
+    </form>
     {% endfor %}
     {% endif %}
 </div>

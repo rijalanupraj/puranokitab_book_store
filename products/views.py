@@ -1,14 +1,18 @@
 from django.shortcuts import render, Http404
+from django.http import HttpResponseRedirect
+
 from django.views.generic import ListView,DetailView,CreateView,UpdateView,DeleteView
 from .models import Product
 from carts.models import Cart
 from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
 from products.models import Product
 
-from analytics.mixins import ObjectViewedMixin
 
-# from comments.models import Comment
-# from comments.forms import CommentForm
+from analytics.mixins import ObjectViewedMixin
+from django.contrib.contenttypes.models import ContentType
+
+from comments.forms import CommentForm
+from comments.models import Comment
 # Create your views here.
 
 class ProductListView(ListView):
@@ -30,17 +34,49 @@ class ProductDetailView(ObjectViewedMixin, DetailView):
     template_name = "products/products_detail.html"
     slug_url_kwarg = 'slug'
 
+
     def get_context_data(self,*args,**kwargs):
         context = super(ProductDetailView,self).get_context_data(*args,**kwargs)
         request = self.request
         slug = self.kwargs['slug']
-        print(slug)
         cart_obj,new_obj = Cart.objects.new_or_get(request)
-        # comment = Comment.objects.all().filter(product__slug=slug)
-        # comment_form = CommentForm()
-        # context['comment_form'] = comment_form
+        
+        instance =  Product.objects.get(slug=slug)
+        initial_data = {
+            "content_type":instance.get_content_type,
+            "object_id":instance.id
+        }
+        comment_form = CommentForm(request.POST or None,initial=initial_data)
+        if comment_form.is_valid():
+            c_type = comment_form.cleaned_data.get("content_type")
+            content_type = ContentType.objects.get(model=c_type)
+            obj_id = comment_form.cleaned_data.get("object_id")
+            content_data = comment_form.cleaned.get("content")
+            parent_obj = None
+            try:
+                parent_id = int(request.POST.get("parent_id"))
+            except:
+                parent_id = None
+
+            if parent_id:
+                parent_qs = Comment.objects.filter(id=parent_id)
+                if parent_qs.exists() and parent_qs.count()==1:
+                    parent_obj = parent_qs.first()
+
+            new_comment,created = Comment.objects.get_or_create(
+                user = request.user,
+                content_type = content_type,
+                object_id = obj_id,
+                content_data = content_data,
+                parent = parent_obj,
+            )
+            return HttpResponseRedirect(new_comment.content_object.get_absolute_url())
+
+        
+        comments = instance.comments
         context['cart'] = cart_obj
-        # context['comments'] = comment
+        context['comments'] = comments
+        context['comment_form'] = comment_form
         return context
     
     def get_object(self, *args, **kwargs):
