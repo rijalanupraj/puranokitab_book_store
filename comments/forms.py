@@ -1,12 +1,12 @@
 from django import forms
 
-from .models import Comment
+# from .models import Comment
 
-class CommentForm(forms.ModelForm):
-    class Meta:
-        model = Comment
+# class CommentForm(forms.ModelForm):
+#     class Meta:
+#         model = Comment
     
-        fields = [ 
-        'message',
-        ]
+#         fields = [ 
+#         'message',
+#         ]
 
