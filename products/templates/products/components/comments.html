@@ -28,13 +28,10 @@
         <div class="card-body">
           <blockquote class="blockquote mb-0">
             <p>{{comment.content}}</p>
-            <footer class="blockquote-footer">{% if comment.children.count > 0 %}{{comment.chldren.count}}replies{% endif %}<a class="comment-reply-btn float-right" href="#">Reply</a></footer>
-            
-          </blockquote>
-        </div>
-      </div><br>
-      {% for child_comment in comment.children %}
-      <div class="card comment-reply">
+            <footer class="blockquote-footer">{% if comment.children.count > 0 %}{{comment.children.count}}replies{% endif %}<a class="comment-reply-btn float-right" href="#">Reply</a></footer>
+            {% for child_comment in comment.children %}
+      <div class="comment-reply" style="display: none;">
+      <div class="card">
         <div class="card-header">
           {% ifequal child_comment.user object.seller %}Seller{% endifequal %}
           {% ifnotequal child_comment.user object.seller %}Customer{% endifnotequal %}
@@ -57,6 +54,11 @@
         </div>
         <button type="submit" class="btn btn-primary">Reply</button>
     </form>
+      </div>
+          </blockquote>
+        </div>
+      </div><br>
+      
     {% endfor %}
     {% endif %}
 </div>
