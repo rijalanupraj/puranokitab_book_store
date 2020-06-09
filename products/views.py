@@ -7,6 +7,8 @@ from products.models import Product
 
 from analytics.mixins import ObjectViewedMixin
 
+from comments.models import Comment
+from comments.forms import CommentForm
 # Create your views here.
 
 class ProductListView(ListView):
@@ -31,8 +33,14 @@ class ProductDetailView(ObjectViewedMixin, DetailView):
     def get_context_data(self,*args,**kwargs):
         context = super(ProductDetailView,self).get_context_data(*args,**kwargs)
         request = self.request
+        slug = self.kwargs['slug']
+        print(slug)
         cart_obj,new_obj = Cart.objects.new_or_get(request)
+        comment = Comment.objects.all().filter(product__slug=slug)
+        comment_form = CommentForm()
+        context['comment_form'] = comment_form
         context['cart'] = cart_obj
+        context['comments'] = comment
         return context
     
     def get_object(self, *args, **kwargs):

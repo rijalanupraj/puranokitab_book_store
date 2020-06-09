@@ -23,7 +23,7 @@
                         <p>{{object.description|truncatechars:300}}</p>
                         <div class="row">
 
-                        {% include 'products/snippet/update_cart.html' with product=object cart=cart %}
+                        {% include 'products/snippet/update_cart.html' with product=object cart=cart comment_form=comment_form %}
                         <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a></div>
                         <ul>
                             <li><b>Availability</b> <span>In Stock</span></li>
@@ -73,8 +73,15 @@
                     </div>
                 </div>
             </div>
+            {% include 'products/components/comments.html' with object=object comments=comments %}
+
         </div>
     </section>
+   
+    
+    
+
+                
     <!-- Product Details Section End -->
 
 

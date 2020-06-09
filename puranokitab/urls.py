@@ -20,6 +20,7 @@ from django.conf.urls.static import static
 from addresses.views import checkout_address_create_view,checkout_address_reuse_view
 from carts.views import cart_detail_api_view
 from user import views
+from comments.views import comment
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -32,6 +33,7 @@ urlpatterns = [
     path('checkout/address/reuse/',checkout_address_reuse_view,name='checkout_address_reuse'),
     path('api/cart/',cart_detail_api_view,name="api-cart"),
     path('analytics/',include('analytics.urls',namespace='analytics')),
+    path('comments/<int:id>',comment,name='comment'),
 
     
 ]
