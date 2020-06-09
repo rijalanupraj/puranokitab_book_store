@@ -5,8 +5,8 @@ from .models import Order
 
 
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ['__str__','billing_profile','cart','total']
-    search_fields = ['billing_profile__user__username','cart__id']
+    list_display = ['__str__','billing_profile','cart','total','status']
+    search_fields = ['billing_profile__user__username','cart__id','status',]
 
     class Meta:
         model = Order
