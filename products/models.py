@@ -16,6 +16,8 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django.contrib.contenttypes.models import ContentType
 from comments.models import Comment
 
+from tags.models import Tag
+
 def current_year():
     return datetime.date.today().year
 
@@ -51,7 +53,7 @@ class ProductQuerySet(models.query.QuerySet):
     def active(self):
         return self.filter(active=True)
     def search(self,query):
-        lookups = Q(title__icontains=query)| Q(description__icontains=query) | Q(price__icontains=query ) |Q(tag__title__icontains=query)
+        lookups = Q(title__icontains=query)| Q(description__icontains=query) | Q(price__icontains=query ) |Q(tags__title__icontains=query)
         return self.filter(lookups).distinct()
 
 class ProductManager(models.Manager):
@@ -90,8 +92,10 @@ class Product(models.Model):
     book_condition = models.CharField(max_length=120,default='good',choices=BOOK_CONDITION)
     image = models.ImageField(upload_to=upload_image_path,null=True,blank=True,default='products/default_book.png')
     featured = models.BooleanField(default = False)
+    tags = models.ManyToManyField(Tag,blank=True)
     active = models.BooleanField(default=True)
     timestamp = models.DateTimeField(auto_now_add=True)
+
 
 
 

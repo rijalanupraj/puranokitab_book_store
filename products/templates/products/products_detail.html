@@ -22,9 +22,15 @@
                         <div class="product__details__price">Rs.{{object.price}}</div>
                         <p>{{object.description|truncatechars:300}}</p>
                         <div class="row">
-
-                        {% include 'products/snippet/update_cart.html' with product=object cart=cart comment_form=comment_form %}
-                        <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a></div>
+                        
+                        {% ifequal user.username object.seller.username %}
+                        <a href="#"><i class="fa fa-trash-o" style="font-size:36px;color:red"></i></i>
+                        </a>
+                        {% else %}
+                        <!-- {% include 'products/snippet/update_cart.html' with product=object cart=cart comment_form=comment_form %} -->
+                        <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
+                        {% endifequal %}
+                        </div>
                         <ul>
                             <li><b>Availability</b> <span>In Stock</span></li>
                             <li><b>Shipping</b> <span>01 day shipping.</span></li>
