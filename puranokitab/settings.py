@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'addresses.apps.AddressesConfig',
     'analytics.apps.AnalyticsConfig',
     'user.apps.UserConfig',
-    'favorites.apps.FavoritesConfig',
     'comments.apps.CommentsConfig',
     'crispy_forms',
     'six',
