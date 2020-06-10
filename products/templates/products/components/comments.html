@@ -1,4 +1,5 @@
 {% load crispy_forms_tags %}
+<div class="border-top my-3"></div>
 
 <div>
   {% if user.is_authenticated %}
@@ -14,7 +15,7 @@
                     </form>
                 </div>
             </div><br>
-            {% endif %}
+            
 
             {% if comments %}
 <h2 class="h2"><span class="badge badge-primary">Comments</span></h2>
@@ -29,9 +30,10 @@
           <blockquote class="blockquote mb-0">
             <p>{{comment.content}}</p>
             <footer class="blockquote-footer">{% if comment.children.count > 0 %}{{comment.children.count}}replies{% endif %}<a class="comment-reply-btn float-right" href="#">Reply</a></footer>
-            {% for child_comment in comment.children %}
-      <div class="comment-reply" style="display: none;">
-      <div class="card">
+            <div class="comment-reply" style="display: none;">
+              {% for child_comment in comment.children %}
+        <br>
+        <div class="card">
         <div class="card-header">
           {% ifequal child_comment.user object.seller %}Seller{% endifequal %}
           {% ifnotequal child_comment.user object.seller %}Customer{% endifnotequal %}
@@ -42,7 +44,7 @@
             <p>{{child_comment.content}}</p>
           </blockquote>
         </div>
-      </div>
+      </div><br>
       {% endfor %}
       
       
@@ -59,6 +61,13 @@
         </div>
       </div><br>
       
+      
     {% endfor %}
     {% endif %}
+
+    {% else %}
+    <h2 class="h2"><span class="badge badge-primary">Comments</span></h2>
+    <p class='login-redirect'><a href="{% url 'login' %}?next={{request.path}}">Login</a> to view and post comments.</p>    
+    {% endif %}
+    
 </div>

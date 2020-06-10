@@ -93,7 +93,11 @@ class Product(models.Model):
     active = models.BooleanField(default=True)
     timestamp = models.DateTimeField(auto_now_add=True)
 
+
+
     objects = ProductManager()    
+
+    
 
     def get_absolute_url(self):
         return reverse("products:product-detail",kwargs={'slug':self.slug})
@@ -110,7 +114,7 @@ class Product(models.Model):
         instance = self
         qs = Comment.objects.filter_by_instance(instance)
         return qs
-    
+
     @property
     def get_content_type(self):
         instance = self

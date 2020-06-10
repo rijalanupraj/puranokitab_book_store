@@ -1,4 +1,4 @@
-from django.shortcuts import render, Http404
+from django.shortcuts import render, Http404,get_object_or_404
 from django.http import HttpResponseRedirect
 
 from django.views.generic import ListView,DetailView,CreateView,UpdateView,DeleteView
@@ -34,27 +34,17 @@ class ProductDetailView(ObjectViewedMixin, DetailView):
     template_name = "products/products_detail.html"
     slug_url_kwarg = 'slug'
 
-
-    def get_context_data(self,*args,**kwargs):
-        context = super(ProductDetailView,self).get_context_data(*args,**kwargs)
-        request = self.request
-        slug = self.kwargs['slug']
-        cart_obj,new_obj = Cart.objects.new_or_get(request)
-        
-        instance =  Product.objects.get(slug=slug)
-        initial_data = {
-            "content_type":instance.get_content_type,
-            "object_id":instance.id
-        }
-        comment_form = CommentForm(request.POST or None,initial=initial_data)
+    def post(self,*args, **kwargs):
+        comment_form = CommentForm(self.request.POST)
         if comment_form.is_valid():
+            print(comment_form.cleaned_data)
             c_type = comment_form.cleaned_data.get("content_type")
-            content_type = ContentType.objects.get(model=c_type)
+            content_type = ContentType.objects.get_for_model(Product)
             obj_id = comment_form.cleaned_data.get("object_id")
-            content_data = comment_form.cleaned.get("content")
+            content_data = comment_form.cleaned_data.get("content")
             parent_obj = None
             try:
-                parent_id = int(request.POST.get("parent_id"))
+                parent_id = int(self.request.POST.get("parent_id"))
             except:
                 parent_id = None
 
@@ -64,15 +54,31 @@ class ProductDetailView(ObjectViewedMixin, DetailView):
                     parent_obj = parent_qs.first()
 
             new_comment,created = Comment.objects.get_or_create(
-                user = request.user,
+                user = self.request.user,
                 content_type = content_type,
                 object_id = obj_id,
-                content_data = content_data,
+                content = content_data,
                 parent = parent_obj,
             )
             return HttpResponseRedirect(new_comment.content_object.get_absolute_url())
 
+        else:
+            self.object = self.get_object()
+            context = super().get_context_data(**kwargs)
+            context['comment_form'] = comment_form
+
+
+            return self.render_to_response(context=context)
+
+    def get_context_data(self,*args,**kwargs):
+        context = super(ProductDetailView,self).get_context_data(*args,**kwargs)
+        request = self.request
+        slug = self.kwargs['slug']
+        cart_obj,new_obj = Cart.objects.new_or_get(request)
         
+        instance =  get_object_or_404(Product,slug=slug)
+        initial_data = {"content_type": instance.get_content_type,"object_id": instance.id}
+        comment_form = CommentForm(request.POST or None, initial=initial_data)
         comments = instance.comments
         context['cart'] = cart_obj
         context['comments'] = comments

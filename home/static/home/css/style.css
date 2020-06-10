@@ -101,6 +101,17 @@ a:focus {
 	color: #ffffff;
 }
 
+footer.blockquote-footer a{
+	color: #007bff;
+}
+footer.blockquote-footer a:hover{
+	color: #da0334;
+}
+
+p.login-redirect a {
+	color: #007bff;
+}
+
 ul,
 ol {
 	padding: 0;
