@@ -78,11 +78,9 @@ def checkout_home(request):
     if request.method == "POST":
         is_done = order_obj.check_done()
         if is_done:
-            print('Hello')
             order_obj.mark_checkout()
             request.session['cart_items'] = 0
             del request.session['cart_id']
-            print('hello')
             return redirect("carts:checkout-success")
             
     context = {

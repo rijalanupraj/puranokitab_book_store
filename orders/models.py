@@ -67,6 +67,10 @@ class Order(models.Model):
     
     def mark_checkout(self):
         if self.check_done():
+            print(self.cart.active)
+            self.cart.active= False
+            print(self.cart.active)
+            self.cart.save()
             self.status = 'checkout'
             self.save()
         return self.status

@@ -39,14 +39,14 @@
             <li><a href="{% url 'products:products-main-page' %}">Shop</a></li>
             <li><a href="#">Pages</a>
                 <ul class="header__menu__dropdown">
-                    <li><a href="./shop-details.html">Shop Details</a></li>
-                    <li><a href="./shoping-cart.html">Shoping Cart</a></li>
-                    <li><a href="./checkout.html">Check Out</a></li>
-                    <li><a href="./blog-details.html">Blog Details</a></li>
+                    <li><a href="#">Shop Details</a></li>
+                    <li><a href="#">Shoping Cart</a></li>
+                    <li><a href="#">Check Out</a></li>
+                    <li><a href="#">Blog Details</a></li>
                 </ul>
             </li>
-            <li><a href="./blog.html">Blog</a></li>
-            <li><a href="./contact.html">Contact</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Contact</a></li>
         </ul>
     </nav>
     <div id="mobile-menu-wrap"></div>
@@ -137,7 +137,8 @@
             <div class="col-lg-3">
                 <div class="header__cart">
                     <ul>
-                        <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
+                        <!-- <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li> -->
+                        <a href="{% url 'products:new-product' %}"><i class="fa fa-plus-circle" aria-hidden="true" style="color: black;font-size:large"></i></a>
                         <li><a href="{% url 'carts:cart-home' %}"><i class="fa fa-shopping-bag"></i>{% if request.session.cart_items %}<span class="navbar-cart-count">{{request.session.cart_items}}</span >{% else %}<span class="navbar-cart-count">0</span>{% endif %}</a></li>
                     </ul>
                     <div class="header__cart__price">
