@@ -1,3 +1,11 @@
+/******************************************************************
+  Template Name: Ogani
+  Description:  Ogani eCommerce  HTML Template
+  Author: Colorlib
+  Author URI: https://colorlib.com
+  Version: 1.0
+  Created: Colorlib
+******************************************************************/
 
 /*------------------------------------------------------------------
 [Table of contents]
@@ -90,7 +98,18 @@ a:hover,
 a:focus {
 	text-decoration: none;
 	outline: none;
-	color: #000000;
+	color: #ffffff;
+}
+
+footer.blockquote-footer a{
+	color: #007bff;
+}
+footer.blockquote-footer a:hover{
+	color: #da0334;
+}
+
+p.login-redirect a {
+	color: #007bff;
 }
 
 ul,
