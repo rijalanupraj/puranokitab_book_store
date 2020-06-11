@@ -24,10 +24,10 @@
                         <div class="row">
                         
                         {% ifequal user.username object.seller.username %}
-                        <a href="#"><i class="fa fa-trash-o" style="font-size:36px;color:red"></i></i>
-                        </a>
+                        <a href="{{object.get_absolute_url}}update"><button type="button" class="btn btn-primary btn-lg">Edit Product</button></a>&ensp;
+                        <a href="{{object.get_absolute_url}}delete"><button type="button" class="btn btn-danger" data-toggle="tooltip" data-placement="right" title="Delete this product"><i class="fa fa-trash-o" style="font-size:30px;color:white"></i></button></a>
                         {% else %}
-                        <!-- {% include 'products/snippet/update_cart.html' with product=object cart=cart comment_form=comment_form %} -->
+                        {% include 'products/snippet/update_cart.html' with product=object cart=cart comment_form=comment_form %}
                         <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
                         {% endifequal %}
                         </div>
