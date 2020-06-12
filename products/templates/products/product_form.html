@@ -6,12 +6,17 @@
             {% csrf_token %}
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">Add Your Book</legend>
-                {{ form|crispy }}
+                {{form|crispy }}
             </fieldset>
+
             <div class="form-group">
                 <button class="btn btn-outline-info" type="submit">Add my Book</button>
             </div>
         </form>
-        
+        <p class="text-muted">Excellent: It means very good condition.It looks like brand new</p>
+            <p class="text-muted">Excellent: It means very good condition.It looks like brand new</p>
+            <p class="text-muted">Excellent: It means very good condition.It looks like brand new</p>
+            <p class="text-muted">Excellent: It means very good condition.It looks like brand new</p>
+
     </div>
 {% endblock content %}

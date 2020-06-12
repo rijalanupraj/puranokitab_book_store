@@ -1,4 +1,11 @@
 {% extends 'home/base/base.html' %}
+{% load static %}
+{% block base_head %}
+<title>{{object.title}} | Purano Kiab</title>
+<meta name="description" content="{{object.description|truncatewords:25}}">
+
+
+{% endblock base_head %}
 
 {% block content %}
 
@@ -20,6 +27,8 @@
                         <h6><i>By {{object.author}}</i></h6>
                         <hr>
                         <div class="product__details__price">Rs.{{object.price}}</div>
+                        <p><mark> <strong><abbr title="These price may not be accurate.">Market Price</abbr></strong> Rs.{{object.market_price}}</mark></p>
+
                         <p>{{object.description|truncatechars:300}}</p>
                         <div class="row">
                         
@@ -41,10 +50,10 @@
 
                             <li><b>Share on</b>
                                 <div class="share">
-                                    <a href="#"><i class="fa fa-facebook"></i></a>
-                                    <a href="#"><i class="fa fa-twitter"></i></a>
-                                    <a href="#"><i class="fa fa-instagram"></i></a>
-                                    <a href="#"><i class="fa fa-pinterest"></i></a>
+                                    <a href="http://www.facebook.com/sharer/sharer.php?u={{ request.scheme }}://{{ request.META.HTTP_HOST }}{{ request.get_full_path|urlencode }}"><i class="fa fa-facebook"></i></a>
+                                    <a href="https://twitter.com/intent/tweet?source=webclient&text={{ request.scheme }}://{{ request.META.HTTP_HOST }}{{ request.get_full_path|urlencode }}"><i class="fa fa-twitter"></i></a>
+                                    <a href="https://www.pinterest.com/pin/create/button/?url={{ request.scheme }}://{{ request.META.HTTP_HOST }}{{ request.get_full_path|urlencode }}&media={{ request.scheme }}://{{ request.META.HTTP_HOST }}{{object.image.url}}&description={{object.title}}"data-pin-do="buttonPin"data-pin-config="above">
+                                        <i class="fa fa-pinterest"></i></a>
                                 </div>
                             </li>
                         </ul>
