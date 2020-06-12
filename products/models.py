@@ -48,7 +48,7 @@ def upload_image_path(instance,filename):
 
 class ProductQuerySet(models.query.QuerySet):
     def featured(self):
-        return self.filter(featured=True,active=True)
+        return self.filter(featured=True,active=True).distinct()
 
     def active(self):
         return self.filter(active=True)
@@ -112,7 +112,13 @@ class Product(models.Model):
     @property
     def name(self):
         return self.title
-    
+
+    @property
+    def Discount(self):
+        Discount = (self.market_price-self.price)/self.market_price
+        Discount = math.floor(Discount * 100)
+        return Discount
+
     @property
     def comments(self):
         instance = self

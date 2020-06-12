@@ -27,7 +27,7 @@ class ProductListView(ListView):
     def get_context_data(self,*args,**kwargs):
         context = super(ProductListView,self).get_context_data(*args,**kwargs)
         request = self.request
-        featured_prodcut = Product.objects.all().filter(featured=True)
+        featured_prodcut = Product.objects.featured()
         context['featured_product'] = featured_prodcut
         return context
 

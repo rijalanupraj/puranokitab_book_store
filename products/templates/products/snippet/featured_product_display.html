@@ -11,8 +11,8 @@
         </div>
         <div class="product__discount__item__text">
             <span>Dried Fruit</span>
-            <h5><a href="#">{{obj.title}}</a></h5>
-            <div class="product__item__price">${{obj.price}} <span>${{obj.market_price}}</span></div>
+            <h5><a href="{{obj.get_absolute_url}}">{{obj.title}}</a></h5>
+            <div class="product__item__price">Rs.{{obj.price}} <span>Rs.{{obj.market_price}}</span></div>
         </div>
     </div>
 </div>
