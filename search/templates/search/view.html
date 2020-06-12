@@ -1,5 +1,11 @@
 {% extends 'home/base/base.html' %}
 
+{% block base_head %}
+
+<title>{% if query %}Searched {{query}} | {% endif %}Purano Kitab</title>
+
+{% endblock base_head %}
+
 {% block content %}
 <!-- Product Section Begin -->
 <section class="product spad">
