@@ -24,6 +24,13 @@ class ProductListView(ListView):
         request = self.request
         return Product.objects.all()
 
+    def get_context_data(self,*args,**kwargs):
+        context = super(ProductListView,self).get_context_data(*args,**kwargs)
+        request = self.request
+        featured_prodcut = Product.objects.all().filter(featured=True)
+        context['featured_product'] = featured_prodcut
+        return context
+
 class ProductFeaturedListView(ListView):
     queryset = Product.objects.all().featured()
     template_name = "products/products_list_featured.html"
