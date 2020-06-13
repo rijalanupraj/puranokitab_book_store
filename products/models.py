@@ -16,6 +16,9 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django.contrib.contenttypes.models import ContentType
 from comments.models import Comment
 
+import random
+
+
 from tags.models import Tag
 
 def current_year():
@@ -72,6 +75,7 @@ class ProductManager(models.Manager):
         if qs.count() == 1:
             return qs.first()
         return None
+         
 
     def search(self,query):
         return self.get_queryset().active().search(query)

@@ -87,9 +87,11 @@ class ProductDetailView(ObjectViewedMixin, DetailView):
         initial_data = {"content_type": instance.get_content_type,"object_id": instance.id}
         comment_form = CommentForm(request.POST or None, initial=initial_data)
         comments = instance.comments
+        users_other_products = Product.objects.all().order_by('?')[:10]
         context['cart'] = cart_obj
         context['comments'] = comments
         context['comment_form'] = comment_form
+        context['users_other_products'] = users_other_products
         return context
     
     def get_object(self, *args, **kwargs):
