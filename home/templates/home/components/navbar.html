@@ -12,7 +12,6 @@
             <li><a href="{% url 'carts:cart-home' %}"><i class="fa fa-shopping-bag"></i>{% if request.session.cart_items %}<span class="navbar-cart-count">{{request.session.cart_items}}</span >{% else %}<span class="navbar-cart-count">0</span>{% endif %}</a></li>
             
         </ul>
-        <div class="header__cart__price">item: <span>$150.00</span></div>
     </div>
     <div class="humberger__menu__widget">
         <!-- <div class="header__top__right__language">

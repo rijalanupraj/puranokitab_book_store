@@ -66,7 +66,6 @@ class ProductManager(models.Manager):
 
     def all(self):
         return self.get_queryset().active()
-
     def featured(self):
         return self.get_queryset().featured()
 
