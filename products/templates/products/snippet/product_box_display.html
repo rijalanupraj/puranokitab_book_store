@@ -1,20 +1,6 @@
 <div class="col-lg-4 col-md-6 col-sm-6">
-    <!-- <div class="product__item">
-        <div class="product__item__pic set-bg" data-setbg="{{obj.image.url}}">
-            
-            <ul class="product__item__pic__hover">
-                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-            </ul>
-        </div>
-        <div class="product__item__text">
-            <h6><a href="{{obj.get_absolute_url}}">{{obj.title}}</a></h6>
-            <h5>Rs. {{obj.price}}</h5><p><del>Rs. {{obj.market_price}}</del></p>
-        </div>
-    </div> -->
-
     <div class="product__discount__item">
+        <a href="{{obj.get_absolute_url}}">
         <div class="product__discount__item__pic set-bg"
             data-setbg="{{obj.image.url}}">
             {% if obj.price < obj.market_price %}<div class="product__discount__percent">-{{obj.Discount}}%</div>{% endif %}
@@ -29,5 +15,6 @@
             <h5><a href="{{obj.get_absolute_url}}">{{obj.title}}</a></h5>
             <div class="product__item__price">Rs.{{obj.price}} <span>Rs.{{obj.market_price}}</span></div>
         </div>
+    </a>
     </div>
 </div>

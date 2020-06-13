@@ -1,5 +1,6 @@
 <div class="col-lg-4">
     <div class="product__discount__item">
+        <a href="{{obj.get_absolute_url}}">
         <div class="product__discount__item__pic set-bg"
             data-setbg="{{obj.image.url}}">
             {% if obj.price < obj.market_price %}<div class="product__discount__percent">-{{obj.Discount}}%</div>{% endif %}
@@ -9,5 +10,6 @@
             <h5><a href="{{obj.get_absolute_url}}">{{obj.title}}</a></h5>
             <div class="product__item__price">Rs.{{obj.price}} <span>Rs.{{obj.market_price}}</span></div>
         </div>
+    </a>
     </div>
 </div>
