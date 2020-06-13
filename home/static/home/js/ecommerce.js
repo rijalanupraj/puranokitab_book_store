@@ -48,9 +48,9 @@ $(document).ready(function(){
         success: function(data){
           var submitSpan = thisForm.find(".submit-span")
           if (data.added){
-            submitSpan.html("<button type='submit' class='primary-btn'>Remove</button>")
+            submitSpan.html("<button type='submit' class='btn btn-primary btn-lg'>Remove</button>")
           } else {
-            submitSpan.html("<button type='submit'  class='primary-btn'>Add to cart</button>")
+            submitSpan.html("<button type='submit' class='btn btn-primary btn-lg'>Add to cart</button>")
            }
           var navbarCount = $(".navbar-cart-count")
           navbarCount.text(data.cartItemCount)

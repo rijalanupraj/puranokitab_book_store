@@ -2,10 +2,11 @@
     <input type='hidden' name='product_id' value='{{ product.id }}' />
     <span class="submit-span">
     {% if product in cart.products.all %}
-    
-        <button type='submit' class='primary-btn'>Remove</button>
+    <button type="submit" class="btn btn-primary btn-lg">Remove</button>
+        <!-- <button type='submit' class='primary-btn'>Remove</button> -->
     {% else %}
-        <button type='submit'  class='primary-btn'>Add to cart</button>
+    <button type="submit" class="btn btn-primary btn-lg">Add to cart</button>
+        <!-- <button type='submit'  class='primary-btn'>Add to cart</button> -->
     </span>
         {% endif %}
     
