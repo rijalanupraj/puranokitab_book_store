@@ -118,6 +118,11 @@ class Product(models.Model):
         Discount = (self.market_price-self.price)/self.market_price
         Discount = math.floor(Discount * 100)
         return Discount
+    
+    @property
+    def Diff(self):
+        Discount = (self.market_price-self.price)
+        return Discount
 
     @property
     def comments(self):

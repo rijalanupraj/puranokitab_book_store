@@ -1,3 +1,4 @@
+<div class="container">
 <form class="form-product-ajax-update" method='POST' action='{% url "carts:update" %}' data-endpoint='{% url "carts:update" %}'> {% csrf_token %}
     <input type='hidden' name='product_id' value='{{ product.id }}' />
     <span class="submit-span">
@@ -11,3 +12,4 @@
         {% endif %}
     
 </form>
+</div>

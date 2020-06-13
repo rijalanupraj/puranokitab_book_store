@@ -12,8 +12,22 @@
 <!-- Product Details Section Begin -->
     <section class="product-details spad">
         <div class="container">
+            {% if user.username != object.seller.username %}<div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>Disclaimer </strong> The price and other details of this book is provided by the user like you. Cross verify the price once before you buy.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>{% endif %}
+            {% if user.username != object.seller.username and object.price < object.market_price %}<div class="alert alert-info alert-dismissible fade show" role="alert">
+                <strong>Hola {% if user.is_authenticated %}{{user.first_name}}{% endif %}!</strong> You will save Rs.<strong>{{ object.Diff }}</strong> buying this book from here. Buy now before it disappears.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>{% endif %}
             <div class="row">
+                
                 <div class="col-lg-6 col-md-6">
+                    
                     <div class="product__details__pic">
                         <div class="product__details__pic__item">
                             <img height="550" width="450" class="product__details__pic__item--large"
@@ -27,8 +41,8 @@
                         <h6><i>By {{object.author}}</i></h6>
                         <hr>
                         <div class="product__details__price">Rs.{{object.price}}</div>
-                        <mark> <strong><abbr title="These price may not be accurate.">Market Price</abbr></strong> Rs.{{object.market_price}}</mark><br><br>
-                        Book Condition: <span class="badge badge-pill badge-info">{{object.book_condition|title}}</span><br><br>
+                        <mark> <strong>Market Price</strong> Rs.{{object.market_price}}</mark><br><br>
+                        Book Condition: <span class="badge badge-pill badge-info" >{{object.book_condition|title}}</span><br><br>
 
 
                         <p>{{object.description|truncatechars:300}}</p>
@@ -39,7 +53,6 @@
                         <a href="{{object.get_absolute_url}}delete"><button type="button" class="btn btn-danger" data-toggle="tooltip" data-placement="right" title="Delete this product"><i class="fa fa-trash-o" style="font-size:30px;color:white"></i></button></a>
                         {% else %}
                         {% include 'products/snippet/update_cart.html' with product=object cart=cart comment_form=comment_form %}
-                        <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
                         {% endifequal %}
                         </div>
                         <ul>
@@ -61,6 +74,8 @@
                         </ul>
                     </div>
                 </div>
+                <div class="container">
+                    
                 <div class="col-lg-12">
                     <div class="product__details__tab">
                         <ul class="nav nav-tabs" role="tablist">
