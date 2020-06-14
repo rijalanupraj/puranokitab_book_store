@@ -48,7 +48,7 @@ $(document).ready(function(){
         success: function(data){
           var submitSpan = thisForm.find(".submit-span")
           if (data.added){
-            submitSpan.html("<button type='submit' class='btn btn-warning btn-lg'>Remove</button><a href=\"{% url 'carts:cart-home' %}\"><button type=\"button\" class=\"btn btn-primary\">Go to cart <span class=\"badge badge-light\">{{request.session.cart_items}}</span></button></a>")
+            submitSpan.html("<button type='submit' class='btn btn-warning btn-lg'>Remove</button>")
           } else {
             submitSpan.html("<button type='submit' class='btn btn-primary btn-lg'>Add to cart</button>")
            }
