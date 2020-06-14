@@ -1,22 +1,32 @@
 {% extends 'home/base/base_without_search.html' %}
 {% load crispy_forms_tags %}
 {% block content %}
-    <div class="col-sm-6 col-md-8 container">
-        <form method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Add Your Book</legend>
-                {{form|crispy }}
-            </fieldset>
+<div class="col-sm-6 col-md-8 container">
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Add Your Book</legend>
+            {{form|crispy }}
+        </fieldset>
 
-            <div class="form-group">
-                <button class="btn btn-outline-info" type="submit">Add my Book</button>
+        <div class="form-group">
+            <button class="btn btn-outline-info" type="submit">Add my Book</button>
+        </div>
+    </form>
+    <br>
+    <div class="container">
+        <div class="row">
+            <legend class="border-bottom mb-4">Points to consider</legend>
+            <div class="col">
+                <span class="badge badge-pill badge-info">Excellent</span>The book is almost new.<br>
+                <span class="badge badge-pill badge-info">Good</span>The book is almost new.
             </div>
-        </form>
-        <p class="text-muted">Excellent: It means very good condition.It looks like brand new</p>
-            <p class="text-muted">Excellent: It means very good condition.It looks like brand new</p>
-            <p class="text-muted">Excellent: It means very good condition.It looks like brand new</p>
-            <p class="text-muted">Excellent: It means very good condition.It looks like brand new</p>
+            <div class="col">
+                <span class="badge badge-pill badge-warning">Satisfactory</span>The book is almost new.<br>
+                <span class="badge badge-pill badge-danger">Poor</span>The book can be used.
+            </div>
+        </div>
 
     </div>
+</div>
 {% endblock content %}

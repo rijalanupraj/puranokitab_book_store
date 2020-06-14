@@ -18,6 +18,6 @@ class SearchProductView(ListView):
         request = self.request
         method_dict = request.GET
         query = method_dict.get('q',None)
-        if query is not None:
+        if query is not None and query != '':
             return Product.objects.search(query)
         return Product.objects.none()

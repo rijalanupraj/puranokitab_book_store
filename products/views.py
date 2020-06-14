@@ -116,7 +116,7 @@ class ProductDetailView(ObjectViewedMixin, DetailView):
 
 class ProductCreateView(LoginRequiredMixin,CreateView):
     model = Product
-    fields = ['title','author','publication','market_price','your_price','book_condition','description','tags','image']
+    fields = ['title','author','publication','market_price','your_price','book_condition','description','image']
     template_name = 'products/product_form.html'
 
     def form_valid(self,form):
