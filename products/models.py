@@ -18,8 +18,15 @@ from comments.models import Comment
 
 import random
 
+import re
+
 
 from tags.models import Tag
+
+
+def normalize_query(query_string,findterms=re.compile(r'"([^"]+)"|(\S+)').findall,normspace=re.compile(r'\s{2,}').sub):
+    return [normspace('',(t[0] or t[1]).strip()) for t in findterms(query_string)]
+
 
 def current_year():
     return datetime.date.today().year
@@ -55,9 +62,26 @@ class ProductQuerySet(models.query.QuerySet):
 
     def active(self):
         return self.filter(active=True)
-    def search(self,query):
-        lookups = Q(title__icontains=query)| Q(description__icontains=query) | Q(price__icontains=query ) | Q(tags__title__icontains=query) | Q(publication__icontains=query) | Q(author__icontains=query)
-        return self.filter(lookups).distinct()
+
+    def search(self,query_string):
+        # lookups = Q(title__icontains=query)| Q(description__icontains=query) | Q(price__icontains=query ) | Q(tags__title__icontains=query) | Q(publication__icontains=query) | Q(author__icontains=query)
+        # return self.filter(lookups).distinct()
+        query = None
+        terms = normalize_query(query_string)
+        search_fields = ['title','description','price','publication','author']
+        for term in terms:
+            or_query = None # Query to search for a given term in each field
+            for field_name in search_fields:
+                q = Q(**{"%s__icontains" % field_name: term})
+                if or_query is None:
+                    or_query = q
+                else:
+                    or_query = or_query | q
+            if query is None:
+                query = or_query
+            else:
+                query = query | or_query
+        return self.filter(query).distinct()
 
 class ProductManager(models.Manager):
 
