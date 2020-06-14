@@ -68,7 +68,7 @@ class ProductQuerySet(models.query.QuerySet):
         # return self.filter(lookups).distinct()
         query = None
         terms = normalize_query(query_string)
-        search_fields = ['title','description','price','publication','author']
+        search_fields = ['title','description','price','publication','author','book_condition','tags__title']
         for term in terms:
             or_query = None # Query to search for a given term in each field
             for field_name in search_fields:
