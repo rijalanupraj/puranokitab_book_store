@@ -129,16 +129,19 @@
                                           </div>
                                           <div class="col">
                                             <table class="table table-hover">
-                                        
                                                 <tr class="table-info">
+                                                    <th scope="row">Seller</th>
+                                                    <td><a href="{% url 'user:user_detail' object.seller %}">{{object.seller.username}}</a></td>
+                                                  </tr>
+                                                <tr class="table-light">
                                                     <th scope="col">Price for you</th>
                                                     <td>Rs. {{object.price}}</td>
                                                   </tr>
-                                                  <tr class="table-light">
+                                                  <tr class="table-info">
                                                     <th scope="row">Market Price</th>
                                                     <td>Rs. {{object.market_price}}</td>
                                                   </tr>
-                                                  <tr class="table-info">
+                                                  <tr class="table-light">
                                                     <th scope="row">Book Condition</th>
                                                     <td>{{object.book_condition|title}}</td>
                                                   </tr>

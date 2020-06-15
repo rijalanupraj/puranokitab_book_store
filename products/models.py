@@ -180,6 +180,6 @@ class Product(models.Model):
 def product_pre_save_receiver(sender,instance,*args,**kwargs):
     if not instance.slug:
         instance.slug = unique_slug_generator(instance)
-    calc = instance.your_price * Decimal(110/100)
-    instance.price =  calc
+    # calc = instance.your_price * Decimal(110/100)
+    instance.price =  instance.your_price
 pre_save.connect(product_pre_save_receiver,sender=Product)
