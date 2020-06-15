@@ -1,0 +1,60 @@
+{% extends 'home/base/base_without_search.html' %}
+{% load static %}
+{% block content %}
+
+
+<div class="row py-5 px-4">
+    <div class="col-xl-8 col-md-8 col-sm-10 mx-auto">
+
+        <!-- Profile widget -->
+        <div class="bg-white shadow rounded overflow-hidden">
+            <div class="px-4 pt-0 pb-4 bg-dark">
+                <div class="media align-items-end profile-header">
+                    <div class="profile mr-3 py-1"><img
+                            src="{{object.profile.image.url}}"
+                            alt="..." width="130" class="rounded mb-2 img-thumbnail">{% if request.user.username == object.username %}<a href="{% url 'user:user_update' %}"
+                            class="btn btn-dark btn-sm btn-block">Edit your Profile</a>{% endif %}</div>
+                    <div class="media-body mb-5 text-white">
+                        <h4 class="mt-0 mb-0">{{object.first_name}} {{object.last_name}}</h4>
+                        <p class="small mb-4"> <i class="fa fa-user mr-2"></i>@{{object.username}}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-light p-4 d-flex justify-content-end text-center">
+                <ul class="list-inline mb-0">
+                    <li class="list-inline-item">
+                        <h5 class="font-weight-bold mb-0 d-block">{{user_products.count}}</h5><small class="text-muted"> <i
+                                class="fa fa-picture-o mr-1"></i>Books</small>
+                    </li>
+                    <!-- <li class="list-inline-item">
+                        <h5 class="font-weight-bold mb-0 d-block">84K</h5><small class="text-muted"> <i
+                                class="fa fa-user-circle-o mr-1"></i>Followers</small>
+                    </li> -->
+                </ul>
+            </div>
+
+            <div class="py-4 px-4">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                    <div class="section-title product__discount__title">
+                        <h2>Books from the user</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    {% for obj in user_products %}
+
+                    {% include 'products/snippet/product_box_display.html' with obj=obj %}
+
+                    {% endfor %}
+                </div>
+                <div class="py-4">
+                    <h5 class="mb-3">Recent posts</h5>
+                
+                </div>
+            </div>
+        </div><!-- End profile widget -->
+
+    </div>
+</div>
+
+{% endblock %}

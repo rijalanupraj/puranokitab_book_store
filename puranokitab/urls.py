@@ -33,7 +33,7 @@ urlpatterns = [
     path('checkout/address/reuse/',checkout_address_reuse_view,name='checkout_address_reuse'),
     path('api/cart/',cart_detail_api_view,name="api-cart"),
     path('analytics/',include('analytics.urls',namespace='analytics')),
-    # path('comments/<int:id>',comment,name='comment'),
+    path('user/',include('user.urls',namespace='user')),
 
     
 ]

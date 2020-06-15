@@ -20,6 +20,7 @@ import random
 
 import re
 
+from PIL import Image
 
 from tags.models import Tag
 
@@ -129,6 +130,7 @@ class Product(models.Model):
     objects = ProductManager()    
 
     
+    
 
     def get_absolute_url(self):
         return reverse("products:product-detail",kwargs={'slug':self.slug})
@@ -136,6 +138,17 @@ class Product(models.Model):
     def __str__(self):
         return self.title
     
+    def save(self):
+        super().save()
+
+        img = Image.open(self.image.path)
+
+        if img.height>1080 or img.width>720:
+            output_size = (1080,720)
+            img = img.resize(output_size,Image.ANTIALIAS)
+        img.save(self.image.path,quality=30,optimize=True)
+
+
     @property
     def name(self):
         return self.title
