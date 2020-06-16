@@ -28,18 +28,14 @@
                     <div class="hero__search__form">
                         <form action="{% url 'search:search-query' %}" method="GET" class='search-form'>
                             <div class="hero__search__categories">
-                                All Categories
+                                Filters
                                 <span class="arrow_carrot-down"></span>
                             </div>
-                            <ul style="display: none;">
-                                <li><a href="#">Fresh Meat</a></li>
-                                <li><a href="#">Vegetables</a></li>
-                                <li><a href="#">Fruit & Nut Gifts</a></li>
-                                <li><a href="#">Fresh Berries</a></li>
-                            </ul>
-
                             <input type="text" name='q' placeholder="Search the book">
                             <button type="submit" class="site-btn">SEARCH</button>
+                            <div class="filter-main">
+                            {% include 'home/components/filter.html' %}
+                            </div>
                         </form>
                     </div>
                     <div class="hero__search__phone">

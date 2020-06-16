@@ -598,6 +598,40 @@ Added By me
 	background: #ffffff;
 }
 
+/* Added by me */
+.hero__search .hero__search__form{
+	position: relative;
+}
+.hero__search .hero__search__form .filter-main {
+	display: none;
+	position: absolute;
+	left: 0;
+	top: 46px;
+	width: 100%;
+	z-index: 10;
+	background: #ffffff;
+}
+
+.hero__search .hero__search__form .filter-main {
+	border: 1px solid #ebebeb;
+	padding-left: 40px;
+	padding-top: 10px;
+	padding-bottom: 12px;
+}
+
+.hero__search__form ul li {
+	list-style: none;
+}
+
+.hero__search__form ul li a {
+	font-size: 16px;
+	color: #1c1c1c;
+	line-height: 39px;
+	display: block;
+}
+
+/* Till here */
+
 .hero.hero-normal .hero__search {
 	margin-bottom: 0;
 }
@@ -650,7 +684,6 @@ Added By me
 }
 
 .hero__search {
-	overflow: hidden;
 	margin-bottom: 30px;
 }
 

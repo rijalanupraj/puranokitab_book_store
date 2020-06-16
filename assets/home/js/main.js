@@ -101,8 +101,9 @@
     });
 
     $('.hero__search__categories').on('click', function(){
-        $('.search-form ul').slideToggle(400);
+        $('.search-form .filter-main').slideToggle(400);
     });
+    
 
     /*--------------------------
         Latest Product Slider
