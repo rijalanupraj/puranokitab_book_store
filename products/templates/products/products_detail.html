@@ -47,8 +47,10 @@
                         <hr>
                         <div class="product__details__price">Rs.{{object.price}}</div>
                         <mark> <strong>Market Price</strong> Rs.{{object.market_price}}</mark><br><br>
-                        Book Condition: <span class="badge badge-pill badge-info" >{{object.book_condition|title}}</span><br>
-                        Seller: <a href="{% url 'user:user_detail' object.seller %}" class="badge badge-dark">{{object.seller}}</a>
+                        Book Condition <span class="badge badge-pill badge-info" >{{object.book_condition|title}}</span><br>
+                        Seller <a href="{% url 'user:user_detail' object.seller %}" class="badge badge-dark">{{object.seller}}</a><br>
+                        Seller Address <span class="badge badge-light">{{object.address}}</span>
+
                         <br>
                         <br>
                         <p>{{object.description|truncatechars:300}}</p>
@@ -121,6 +123,10 @@
                                                   <tr class="table-light">
                                                     <th scope="row">Published Date</th>
                                                     <td>{{object.published_date}}</td>
+                                                  </tr>
+                                                  <tr class="table-info">
+                                                    <th scope="row">Seller Address</th>
+                                                    <td>{{object.address}}</td>
                                                   </tr>
                                                   
                                                 

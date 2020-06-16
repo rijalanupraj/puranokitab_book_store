@@ -30,6 +30,7 @@
         var bg = $(this).data('setbg');
         $(this).css('background-image', 'url(' + bg + ')');
     });
+    
 
     //Humberger Menu
     $(".humberger__open").on('click', function () {
@@ -43,6 +44,13 @@
         $(".humberger__menu__overlay").removeClass("active");
         $("body").removeClass("over_hid");
     });
+
+    $(".humberger-close").on('click', function () {
+        $(".humberger__menu__wrapper").removeClass("show__humberger__menu__wrapper");
+        $(".humberger__menu__overlay").removeClass("active");
+        $("body").removeClass("over_hid");
+    });
+    
 
     /*------------------
 		Navigation

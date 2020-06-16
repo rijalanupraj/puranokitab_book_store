@@ -98,7 +98,7 @@ a:hover,
 a:focus {
 	text-decoration: none;
 	outline: none;
-	color: #ffffff;
+	color: #da0334;
 }
 
 footer.blockquote-footer a{
@@ -117,6 +117,11 @@ ol {
 	padding: 0;
 	margin: 0;
 }
+
+/*
+Added By me
+*/
+
 
 /*---------------------
   Helper CSS
@@ -3019,7 +3024,7 @@ ol {
 		border: 1px solid #1c1c1c;
 		cursor: pointer;
 		position: absolute;
-		right: 15px;
+		left: 15px;
 		top: 22px;
 	}
 	.header .container {
@@ -3277,7 +3282,7 @@ ol {
 		border: 1px solid #1c1c1c;
 		cursor: pointer;
 		position: absolute;
-		right: 15px;
+		left: 15px;
 		top: 22px;
 	}
 	.header .container {

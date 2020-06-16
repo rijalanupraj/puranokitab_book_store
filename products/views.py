@@ -125,7 +125,7 @@ class ProductCreateView(LoginRequiredMixin,CreateView):
 
 class ProductUpdateView(LoginRequiredMixin,UserPassesTestMixin,UpdateView):
     model = Product
-    fields = ['title','author','publication','market_price','your_price','book_condition','description','address','image']
+    fields = ['title','author','publication','market_price','your_price','book_condition','description','address','image','sold']
     template_name = 'products/product_form.html'
 
     def form_valid(self,form):

@@ -5,6 +5,7 @@ from django.views.generic import ListView,DetailView,CreateView,UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from products.models import Product
 from .forms import UserUpdateForm,ProfileUpdateForm
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 class UserDetailView(LoginRequiredMixin, DetailView):
@@ -41,6 +42,7 @@ class ProductUpdateView(LoginRequiredMixin,UpdateView):
         form.instance.seller = self.request.user
         return super().form_valid(form)
 
+@login_required
 def profile(request):
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST,instance=request.user)

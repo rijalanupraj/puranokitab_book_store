@@ -93,6 +93,7 @@ class ProductManager(models.Manager):
 
     def all(self):
         return self.get_queryset().active()
+        
     def featured(self):
         return self.get_queryset().featured()
 
@@ -122,6 +123,7 @@ class Product(models.Model):
     book_condition = models.CharField(max_length=120,default='good',choices=BOOK_CONDITION)
     image = models.ImageField(upload_to=upload_image_path,null=True,blank=True,default='products/default_book.png')
     address = models.CharField(max_length=120,default='Kathmandu',choices=DISTRICTS)
+    sold = models.BooleanField(default = False)
     featured = models.BooleanField(default = False)
     tags = models.ManyToManyField(Tag,blank=True)
     active = models.BooleanField(default=True)
