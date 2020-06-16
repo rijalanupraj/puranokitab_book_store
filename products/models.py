@@ -20,6 +20,8 @@ import random
 
 import re
 
+from .districts import DISTRICTS
+
 from PIL import Image
 
 from tags.models import Tag
@@ -119,6 +121,7 @@ class Product(models.Model):
     price = models.DecimalField(decimal_places=2,max_digits=7,default=0.0)
     book_condition = models.CharField(max_length=120,default='good',choices=BOOK_CONDITION)
     image = models.ImageField(upload_to=upload_image_path,null=True,blank=True,default='products/default_book.png')
+    address = models.CharField(max_length=120,default='Kathmandu',choices=DISTRICTS)
     featured = models.BooleanField(default = False)
     tags = models.ManyToManyField(Tag,blank=True)
     active = models.BooleanField(default=True)
