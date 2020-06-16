@@ -92,6 +92,10 @@
         $('.hero__categories ul').slideToggle(400);
     });
 
+    $('.hero__search__categories').on('click', function(){
+        $('.search-form ul').slideToggle(400);
+    });
+
     /*--------------------------
         Latest Product Slider
     ----------------------------*/

@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
+from django.core.mail import EmailMessage
+
+
 from django.http import JsonResponse
 
 from addresses.forms import AddressForm
@@ -76,6 +79,20 @@ def checkout_home(request):
             order_obj.save()
             
     if request.method == "POST":
+        cart_id = order_obj.cart_id
+        cart = Cart.objects.get(id=cart_id)
+        for product in cart.products.all():
+            email_id = product.seller.email
+            seller_name = product.seller.first_name + ' ' + product.seller.last_name
+            product_name = product.title
+            buyer_name = request.user.first_name +' '+request.user.last_name
+            buyer_email = request.user.email
+            subject = "You book has been demanded"
+            body = f"Namaste, {seller_name} The book {product_name} is being demanded by the person.\nYour Book= {product_name}\nBuyer Name= {buyer_name}\nBuyer Email= {buyer_email}\nPlease have the talk with eachother and finalize the deal.You can exhange you mobile number or social media id using email and contact with them.\nAfter your product is sold please update your product\nContact with the person as soon as possible\n\n"
+            email = EmailMessage(subject,body, to=[buyer_email])
+            email.send()
+
+
         is_done = order_obj.check_done()
         if is_done:
             order_obj.mark_checkout()
