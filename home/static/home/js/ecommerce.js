@@ -1,33 +1,33 @@
 $(document).ready(function(){
     //Auto Search
-    var searchForm = $('.search-form')
-    var searchInput = searchForm.find("[name='q']")
-    var typingTimer;
-    var typingInterval = 1500;
-    var searchBtn = searchForm.find("[type='submit']")
+    // var searchForm = $('.search-form')
+    // var searchInput = searchForm.find("[name='q']")
+    // var typingTimer;
+    // var typingInterval = 1500;
+    // var searchBtn = searchForm.find("[type='submit']")
 
-    searchInput.keyup(function(event){
+    // searchInput.keyup(function(event){
         //key released
-        clearTimeout(typingTimer)
-        typingTimer = setTimeout(performSearch,typingInterval);
-    })
-    searchInput.keydown(function(event){
+    //     clearTimeout(typingTimer)
+    //     typingTimer = setTimeout(performSearch,typingInterval);
+    // })
+    // searchInput.keydown(function(event){
         //keypressed
-        clearTimeout(typingTimer)
-    })
+    //     clearTimeout(typingTimer)
+    // })
     
-    function displaySearching(){
-        searchBtn.addClass("disabled")
-        searchBtn.html("<i class='fa fa-spin fa-spinner'></i>Searching...")
-    }
+    // function displaySearching(){
+    //     searchBtn.addClass("disabled")
+    //     searchBtn.html("<i class='fa fa-spin fa-spinner'></i>Searching...")
+    // }
 
-    function performSearch(){
-        displaySearching()
-        var query = searchInput.val();
-        setTimeout(function(){
-        window.location.href = '/search/?q='+query;
-        },2000)
-    }
+    // function performSearch(){
+    //     displaySearching()
+    //     var query = searchInput.val();
+    //     setTimeout(function(){
+    //     window.location.href = '/search/?q='+query;
+    //     },2000)
+    // }
 
     //For cart update in products details page
   var productForm = $(".form-product-ajax-update") // #form-product-ajax

@@ -66,12 +66,12 @@ class ProductQuerySet(models.query.QuerySet):
     def active(self):
         return self.filter(active=True)
 
-    def search(self,query_string):
+    def search(self,query_string,district,minamount,maxamount):
         # lookups = Q(title__icontains=query)| Q(description__icontains=query) | Q(price__icontains=query ) | Q(tags__title__icontains=query) | Q(publication__icontains=query) | Q(author__icontains=query)
         # return self.filter(lookups).distinct()
         query = None
         terms = normalize_query(query_string)
-        search_fields = ['title','description','price','publication','author','book_condition','tags__title']
+        search_fields = ['title','description','publication','author','tags__title','seller__username']
         for term in terms:
             or_query = None # Query to search for a given term in each field
             for field_name in search_fields:
@@ -84,7 +84,22 @@ class ProductQuerySet(models.query.QuerySet):
                 query = or_query
             else:
                 query = query | or_query
-        return self.filter(query).distinct()
+            if district is not None and district != "" and district!='None':
+                dis = Q(address__iexact=district)
+                query = query & dis
+        if minamount is not None and maxamount is not None:
+            return self.filter(query,price__range=(minamount,maxamount)).distinct()
+        else:
+            return self.filter(query).distinct()
+
+    def search_by_price(self,minamount,maxamount):
+        return self.filter(price__range=(minamount,maxamount)).distinct()
+
+    def search_by_district_price(self,district,minamount,maxamount):
+        lookups = Q(address__iexact=district)
+        return self.filter(lookups,price__range=(minamount,maxamount)).distinct()
+
+    
 
 class ProductManager(models.Manager):
 
@@ -104,9 +119,14 @@ class ProductManager(models.Manager):
         return None
          
 
-    def search(self,query):
-        return self.get_queryset().active().search(query)
+    def search(self,query,district,minamount,maxamount):
+        return self.get_queryset().active().search(query,district,minamount,maxamount)
 
+    def search_by_price(self,minamount,maxamount):
+        return self.get_queryset().active().search_by_price(minamount,maxamount)
+
+    def search_by_district_price(self,district,minamount,maxamount):
+        return self.get_queryset().active().search_by_district_price(district,minamount,maxamount)
 
 
 class Product(models.Model):

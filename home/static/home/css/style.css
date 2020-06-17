@@ -705,6 +705,15 @@ Added By me
 	padding-top: 11px;
 	position: relative;
 }
+.hero__search .hero__search__categories_mobile {
+	float: left;
+	font-size: 16px;
+	color: #1c1c1c;
+	font-weight: 700;
+	padding-left: 18px;
+	padding-top: 11px;
+	position: relative;
+}
 
 .hero__search__form form .hero__search__categories:after {
 	position: absolute;
@@ -3249,6 +3258,11 @@ Added By me
 	.hero__search__form form input {
 		width: 100%;
 	}
+	.hero__search__form form .district-input{
+		padding: 10px;
+		width: 80%;
+		text-align: left;
+	}
 	.hero__search__form form .hero__search__categories {
 		display: none;
 	}
@@ -3538,5 +3552,13 @@ Added By me
 	}
 	.blog__details__hero__text h2 {
 		font-size: 24px;
+	}
+}
+@media only screen and (min-width:768px) {
+	.hero__search .hero__search__categories_mobile{
+		display: none;
+	}
+	.hero__search__form form .district-input{
+		width: 50%;
 	}
 }

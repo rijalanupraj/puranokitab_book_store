@@ -103,6 +103,9 @@
     $('.hero__search__categories').on('click', function(){
         $('.search-form .filter-main').slideToggle(400);
     });
+    $('.hero__search__categories_mobile').on('click', function(){
+        $('.search-form .filter-main').slideToggle(400);
+    });
     
 
     /*--------------------------
